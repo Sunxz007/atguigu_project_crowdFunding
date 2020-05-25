@@ -1,16 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sun
-  Date: 2020/5/1
-  Time: 2:30 下午
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+  <title>$Title$</title>
+</head>
+<base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/>
+<body>
+<a href="test/ssm.html">
+  测试ssm
+</a>
+</body>
 </html>

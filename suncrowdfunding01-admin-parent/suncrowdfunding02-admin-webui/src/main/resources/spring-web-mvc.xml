@@ -18,5 +18,15 @@
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <!--view   -->
+
+    <!--配置基于xml的注解  -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" id="simpleMappingExceptionResolver">
+        <!--配置异常类型和具体视图的页面对应关系-->
+        <property name="exceptionMappings">
+            <props>
+                <!--标签体中写对应的视图（会拼写得到路径）-->
+                <prop key="java.lang.Exception">system-error</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

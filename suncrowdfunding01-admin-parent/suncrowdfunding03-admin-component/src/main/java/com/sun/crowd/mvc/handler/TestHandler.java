@@ -30,7 +30,7 @@ public class TestHandler {
         List<Admin> admins = adminService.getAll();
         model.addAttribute("admins", admins);
         String a = null;
-        System.out.println(a.length());
+        System.out.println(5/0);
         return "target";
     }
 

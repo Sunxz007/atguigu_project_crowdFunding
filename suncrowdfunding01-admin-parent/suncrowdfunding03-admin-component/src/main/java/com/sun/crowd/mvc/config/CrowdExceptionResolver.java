@@ -1,6 +1,7 @@
 package com.sun.crowd.mvc.config;
 
 import com.google.gson.Gson;
+import com.sun.crowd.constant.CrowdConstant;
 import com.sun.crowd.util.CrowdUtil;
 import com.sun.crowd.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -69,7 +70,7 @@ public class CrowdExceptionResolver {
         //不是ajax请求则直接创建modelAndView对象
         ModelAndView modelAndView = new ModelAndView();
         //将exception对象存入模型
-        modelAndView.addObject("exception", exception);
+        modelAndView.addObject(CrowdConstant.ATTR_NAME_EXCEPTION, exception);
         //设置对应的视图名称
         modelAndView.setViewName(viweName);
         return modelAndView;

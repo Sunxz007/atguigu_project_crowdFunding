@@ -6,6 +6,7 @@
 <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/>
 <body>
 <script type="text/javascript" src="jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#btn").click(function () {
@@ -31,6 +32,9 @@
                     console.log(response);
                 }
             });
+        });
+        $("#btn1").click(function () {
+            layer.msg("aassads");
         })
     })
 </script>
@@ -39,5 +43,9 @@
 </a>
 <br/>
 <button id="btn"> AjaxTest</button>
+
+<br/>
+<br>
+<button id="btn1"> layerTest</button>
 </body>
 </html>

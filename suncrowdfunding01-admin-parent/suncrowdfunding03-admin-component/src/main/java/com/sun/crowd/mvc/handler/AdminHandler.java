@@ -32,8 +32,7 @@ public class AdminHandler {
 
         // 将登录成功返回的admin对象存入session域中
         session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN, admin);
-
-        return "admin-main";
+        //防止页面留在表单请求路径，刷新后重复提交表单，重定向到另一个地址，更改浏览器地址
+        return "redirect:/admin/to/main/page.html";
     }
-
 }

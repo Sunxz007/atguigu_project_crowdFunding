@@ -31,4 +31,5 @@
     </bean>
     <!--配置view-controlle ，直接把请求地址和视图名称关联起来-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
 </beans>

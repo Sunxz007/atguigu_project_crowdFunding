@@ -32,4 +32,17 @@
     <!--配置view-controlle ，直接把请求地址和视图名称关联起来-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+    <!--注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--mvc:mapping 配置要拦截的资源-->
+            <mvc:mapping path="/**"/>
+            <!--不需要拦截的资源-->
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/do/login.html"/>
+            <mvc:exclude-mapping path="/admin/do/loginout.html"/>
+            <!--配置拦截器的类-->
+            <bean class="com.sun.crowd.mvc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

@@ -61,7 +61,7 @@ public class CrowdUtil {
             // 7.按16进制将bigInteger的值转为字符串
             int radix = 16;
 
-            return bigInteger.toString(radix);
+            return bigInteger.toString(radix).toUpperCase();
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

@@ -62,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
         String userPswdForm = CrowdUtil.md5(userPswd);
 
         // 6. 对密码进行比较
-        if (Objects.equals(adminpswddb, userPswdForm)) {
+        if (!Objects.equals(adminpswddb, userPswdForm)) {
             // 7. 如果比较结果不一致则抛出异常
             throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED);
         }

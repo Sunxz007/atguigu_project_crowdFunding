@@ -10,5 +10,11 @@ public interface AdminService {
 
     List<Admin> getAll();
 
+    /**
+     * 根据用户名和密码获取登录名
+     * @param loginAcct 登录账号
+     * @param userPswd 登录密码
+     * @return 登录用户信息
+     */
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
 }

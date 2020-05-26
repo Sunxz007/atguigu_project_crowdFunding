@@ -14,5 +14,6 @@ public class CrowdConstant {
     public static final String MESSAGE_ACCESS_FORBIDEN = "请登录以后再尝试";
 
     public static final  String MESSAGE_STRING_INVALIDATE="字符串不合法，请不要传入空字符串";
+    public static final String MESSAGE_SYSTEM_ERROR_LOGIN_NOT_UNIQUE="系统错误，账号不唯一";
 }
 

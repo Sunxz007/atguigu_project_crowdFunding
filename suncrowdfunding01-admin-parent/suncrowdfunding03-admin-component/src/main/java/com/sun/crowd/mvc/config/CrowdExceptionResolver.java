@@ -2,6 +2,7 @@ package com.sun.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.sun.crowd.constant.CrowdConstant;
+import com.sun.crowd.exception.LoginFailedException;
 import com.sun.crowd.util.CrowdUtil;
 import com.sun.crowd.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,13 +20,13 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
 
-    @ExceptionHandler(value = ArithmeticException.class)
+    @ExceptionHandler(value = LoginFailedException.class)
     public ModelAndView resolveMathException(
-            ArithmeticException exception,
+            LoginFailedException exception,
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
-        return commonResolve("system-error", exception, response, request);
+        return commonResolve("admin-login", exception, response, request);
     }
 
     /**

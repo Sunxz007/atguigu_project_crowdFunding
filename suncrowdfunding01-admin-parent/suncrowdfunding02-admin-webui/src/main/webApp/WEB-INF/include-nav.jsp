@@ -10,7 +10,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle"
                                 data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> ${sessionScope.admin.userName} <span
+                            <i class="glyphicon glyphicon-user"></i> ${sessionScope.loginAdmin.userName} <span
                                 class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">

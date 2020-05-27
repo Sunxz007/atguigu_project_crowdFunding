@@ -7,6 +7,7 @@ import com.sun.crowd.service.api.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,19 @@ public class AdminHandler {
 
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/remove/{adminId}/{pageNum}/{keyword}.html")
+    public String remove(
+            @PathVariable("adminId") Integer adminId,
+            @PathVariable("pageNum") String pageNum,
+            @PathVariable("keyword") String keyword
+    ){
+
+        //执行删除
+        adminService.remove(adminId);
+        //页面跳转：回到分页页面
+        return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
+    }
 
     @RequestMapping("/admin/get/page.html")
     public String getPageInfo(

@@ -47,5 +47,6 @@
 <br/>
 <br>
 <button id="btn1"> layerTest</button>
+<a href="admin/to/login/page.html">登录面</a>
 </body>
 </html>

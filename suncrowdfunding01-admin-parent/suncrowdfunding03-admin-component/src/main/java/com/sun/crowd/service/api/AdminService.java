@@ -27,4 +27,10 @@ public interface AdminService {
      * @return PageInfo 信息
      */
     PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize);
+
+    /**
+     * 删除admin数据
+     * @param adminId admin的id
+     */
+    void remove(Integer adminId);
 }

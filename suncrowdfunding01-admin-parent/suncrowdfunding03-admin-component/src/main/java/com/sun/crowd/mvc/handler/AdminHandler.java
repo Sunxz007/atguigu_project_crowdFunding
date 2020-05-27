@@ -1,10 +1,12 @@
 package com.sun.crowd.mvc.handler;
 
+import com.github.pagehelper.PageInfo;
 import com.sun.crowd.constant.CrowdConstant;
 import com.sun.crowd.entity.Admin;
 import com.sun.crowd.service.api.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,25 @@ public class AdminHandler {
 
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/get/page.html")
+    public String getPageInfo(
+            // 使用@RequestParam 注解的defaultValue 属性 ，指定默认值，在请求中没有携带对应参数的使用默认值
+            // keyword默认值使用空字符串，和sql语句配合实现两种情况适配
+            @RequestParam(value = "keyword",defaultValue = "") String keyword,
+            // pageNum默认值使用1，默认去第一页
+            @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+            // pageSize默认值使用5
+            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+            ModelMap modelMap
+    ) {
+        //调用Service 方法获取pageinfo对象
+        PageInfo<Admin> pageInfo = adminService.getPageInfo(keyword, pageNum, pageSize);
+
+        //将PageInfo对象存入模型
+        modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO, pageInfo);
+        return "admin-page";
+    }
 
     @RequestMapping("/admin/do/login.html")
     public String doLogin(

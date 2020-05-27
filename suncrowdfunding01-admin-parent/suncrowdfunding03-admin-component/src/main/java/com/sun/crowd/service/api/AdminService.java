@@ -1,5 +1,6 @@
 package com.sun.crowd.service.api;
 
+import com.github.pagehelper.PageInfo;
 import com.sun.crowd.entity.Admin;
 
 import java.util.List;
@@ -17,4 +18,13 @@ public interface AdminService {
      * @return 登录用户信息
      */
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
+
+    /**
+     * 根据关键词进行分页查询
+     * @param keyword 关键词
+     * @param pageNum 页码
+     * @param pageSize 页面大小
+     * @return PageInfo 信息
+     */
+    PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize);
 }

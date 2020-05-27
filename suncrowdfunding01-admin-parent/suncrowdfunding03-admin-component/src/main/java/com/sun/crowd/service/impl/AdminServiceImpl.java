@@ -8,6 +8,7 @@ import com.sun.crowd.entity.AdminExample;
 import com.sun.crowd.exception.LoginFailedException;
 import com.sun.crowd.mapper.AdminMapper;
 import com.sun.crowd.mvc.config.LoginAcctAlreadyInUseException;
+import com.sun.crowd.mvc.config.LoginAcctAlreadyInUseForUpdateException;
 import com.sun.crowd.service.api.AdminService;
 import com.sun.crowd.util.CrowdUtil;
 import org.slf4j.Logger;
@@ -28,6 +29,37 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
+
+    /**
+     * 根据id获取admin信息
+     *
+     * @param id adminId
+     * @return admin信息
+     */
+    @Override
+    public Admin getAdminById(Integer id) {
+        Admin admin = adminMapper.selectByPrimaryKey(id);
+        return admin;
+    }
+
+    /**
+     * 更新admin信息
+     *
+     * @param admin 需要更新的admin信息
+     */
+    @Override
+    public void updateAdmin(Admin admin) {
+
+        try {
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if(e instanceof DuplicateKeyException){
+                logger.warn("异常类类名="+e.getClass().getName());
+                throw new LoginAcctAlreadyInUseForUpdateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+    }
 
     private Logger logger= LoggerFactory.getLogger(AdminServiceImpl.class);
     /**
@@ -127,7 +159,7 @@ public class AdminServiceImpl implements AdminService {
             adminMapper.insert(admin);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.warn(e.getMessage());
+            logger.warn("异常类类名="+e.getClass().getName());
             if(e instanceof DuplicateKeyException){
                 throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
             }

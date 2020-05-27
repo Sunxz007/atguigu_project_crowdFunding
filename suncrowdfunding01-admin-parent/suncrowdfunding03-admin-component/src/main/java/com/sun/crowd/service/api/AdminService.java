@@ -20,6 +20,13 @@ public interface AdminService {
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
 
     /**
+     * 根据id获取admin信息
+     * @param id adminId
+     * @return admin信息
+     */
+    Admin getAdminById(Integer id);
+
+    /**
      * 根据关键词进行分页查询
      * @param keyword 关键词
      * @param pageNum 页码
@@ -33,4 +40,10 @@ public interface AdminService {
      * @param adminId admin的id
      */
     void remove(Integer adminId);
+
+    /**
+     * 更新admin信息
+     * @param admin 需要更新的admin信息
+     */
+    void updateAdmin(Admin admin);
 }

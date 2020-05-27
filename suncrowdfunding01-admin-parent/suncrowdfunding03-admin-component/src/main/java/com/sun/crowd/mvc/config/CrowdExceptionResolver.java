@@ -21,6 +21,16 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
 
+    @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseForUpdateException(
+            LoginAcctAlreadyInUseForUpdateException exception,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        //返回到错误信息页面，从而返回编辑表单中
+        return commonResolve("system-error", exception, response, request);
+    }
+
     @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
     public ModelAndView resolveLoginAcctAlreadyInUseException(
             LoginAcctAlreadyInUseException exception,

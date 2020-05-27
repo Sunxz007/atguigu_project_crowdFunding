@@ -7,10 +7,16 @@ import com.sun.crowd.entity.Admin;
 import com.sun.crowd.entity.AdminExample;
 import com.sun.crowd.exception.LoginFailedException;
 import com.sun.crowd.mapper.AdminMapper;
+import com.sun.crowd.mvc.config.LoginAcctAlreadyInUseException;
 import com.sun.crowd.service.api.AdminService;
 import com.sun.crowd.util.CrowdUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +29,12 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    private Logger logger= LoggerFactory.getLogger(AdminServiceImpl.class);
     /**
      * 删除admin数据
      * @param adminId admin的id
      */
-    @Override
+     @Override
     public void remove(Integer adminId) {
         adminMapper.deleteByPrimaryKey(adminId);
     }
@@ -104,7 +111,27 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void saveAdmin(Admin admin) {
-        adminMapper.insert(admin);
+        // 1. 密码加密
+        String userPswd = admin.getUserPswd();
+        userPswd = CrowdUtil.md5(userPswd);
+        admin.setUserPswd(userPswd);
+
+        // 2. 生成创建时间
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = format.format(date);
+        admin.setCreateTime(createTime);
+        // 3. 执行保存
+
+        try {
+            adminMapper.insert(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.warn(e.getMessage());
+            if(e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 
     @Override

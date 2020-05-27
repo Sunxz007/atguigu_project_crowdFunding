@@ -70,9 +70,9 @@
                     <button  type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <a type="button" class="btn btn-primary" style="float:right;"
+                         href="admin/to/add/page.html"   ><i class="glyphicon glyphicon-plus"></i> 新增
+                    </a>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">

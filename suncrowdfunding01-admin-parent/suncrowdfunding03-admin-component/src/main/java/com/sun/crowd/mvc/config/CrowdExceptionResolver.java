@@ -5,6 +5,7 @@ import com.sun.crowd.constant.CrowdConstant;
 import com.sun.crowd.exception.LoginFailedException;
 import com.sun.crowd.util.CrowdUtil;
 import com.sun.crowd.util.ResultEntity;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,8 +21,17 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
 
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseException(
+            LoginAcctAlreadyInUseException exception,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
+        return commonResolve("admin-add", exception, response, request);
+    }
+
     @ExceptionHandler(value = LoginFailedException.class)
-    public ModelAndView resolveMathException(
+    public ModelAndView resolveLoginException(
             LoginFailedException exception,
             HttpServletRequest request,
             HttpServletResponse response

@@ -48,6 +48,8 @@ function fillTableBody(pageInfo) {
     //清除tbody 中的旧内容
     const pageBody = $("#rolePageBody");
     pageBody.empty();
+    //清空导航条，当页面无数据时不显示缓存的页码条
+    $("#Pagination").empty();
 
     //判断pageInfo 对象是否有效
     if (pageInfo === null || pageInfo === undefined || pageInfo.list === null || pageInfo.list.length === 0) {

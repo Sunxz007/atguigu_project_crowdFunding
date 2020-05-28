@@ -25,6 +25,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public void updateRole(Role role) {
+        roleMapper.updateByPrimaryKey(role);
+    }
+
+    @Override
     public PageInfo<Role> getPageInfo(Integer pageNum, Integer pageSize, String keyword) {
 
         // 1. 开启分页功能

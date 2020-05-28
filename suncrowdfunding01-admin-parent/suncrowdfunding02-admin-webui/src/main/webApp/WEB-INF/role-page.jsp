@@ -59,11 +59,62 @@
                         layer.msg("操作失败");
                     }
                 },
-                "fail":function (response) {
-                    console.log(response);
+                "error":function (response) {
+                    layer.msg(response.status + " " + response.statusText);
                 }
             });
-        })
+        });
+
+        //给页面上的编辑绑定函数打开模态框
+        //先找到动态生成的元素附着的静态元素
+        $("#rolePageBody").on("click",".pencilBtn",function () {
+            //打开模态框
+            $("#editModal").modal("show");
+
+            // 获取表格中当前的id数据
+            let roleName = $(this).parent().prev().text();
+
+            // 获取当前角色的id
+            window.roleId = this.id;
+
+            // 使用roleName的值设置模态框中的文本框
+            $("#editModal [name=roleName]").val(roleName);
+
+        });
+
+        // 7. 更新按钮绑定单机响应函数
+        $("#updateRoleBtn").click(function () {
+
+            //从文本框中获取新的角色名称
+            let roleName = $("#editModal [name=roleName]").val();
+            $.ajax({
+                "url":"role/update.json",
+                "data":{
+                    "id":window.roleId,
+                    "name":roleName
+                },
+                "dataType":"JSON",
+                "success":function (response) {
+                    const result = response.result;
+
+                    if (result === "SUCCESS") {
+                        layer.msg("操作成功");
+                        // 清理模态框数据
+                        $("#editModal [name=roleName]").val("");
+                        //重新加载分页
+                        generatePage();
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败");
+                    }
+                },
+                "error":function (response) {
+                    layer.msg(response.status + " " + response.statusText);
+                }
+            });
+            // 关闭模态框
+            $("#editModal").modal("hide");
+        });
 
     })
 </script>
@@ -127,5 +178,6 @@
     </div>
 </div>
 <%@include file="/WEB-INF/modal-role-add.jsp" %>
+<%@include file="/WEB-INF/modal-role-edit.jsp" %>
 </body>
 </html>

@@ -66,7 +66,7 @@ function fillTableBody(pageInfo) {
         const checkboxTd = "<td><input type='checkbox'></td>";
         const roleNameTd = "<td>" + roleName + "</td>";
         const checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>";
-        const pencilBtn = "<button type='button' class='btn btn-primary btn-xs'><i class=' glyphicon glyphicon-pencil'></i></button>";
+        const pencilBtn = "<button id=" + roleId + " type='button'  class='btn btn-primary btn-xs pencilBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
         const removeBtn = "<button type='button' class='btn btn-danger btn-xs'><i class=' glyphicon glyphicon-remove'></i></button>";
 
         const buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>";
@@ -84,14 +84,14 @@ function generateNavigator(pageInfo) {
     const totalRecord = pageInfo.total;
 
     //声明相关属性
-    const properties={
+    const properties = {
         "num_edge_entries": 3,    // 边缘页数
         "num_display_entries": 5, // 主体页数
         "callback": pageinationCallBack,
-        "items_per_page":pageInfo.pageSize,
-        "current_page": pageInfo.pageNum-1,
+        "items_per_page": pageInfo.pageSize,
+        "current_page": pageInfo.pageNum - 1,
         "prev_text": "上一页",
-        "next_text":"下一页"
+        "next_text": "下一页"
     };
     // 调用pagination()函数
     $("#Pagination").pagination(totalRecord, properties);

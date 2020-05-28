@@ -23,10 +23,10 @@ public class RoleHandler {
     @ResponseBody
     @RequestMapping("/role/get/page/info.json")
     public ResultEntity<PageInfo<Role>> getPageInfo(
-            @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize",defaultValue = "1") Integer pageSize,
-            @RequestParam(value = "keyword",defaultValue = "") String keyword
-    ){
+            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "1") Integer pageSize,
+            @RequestParam(value = "keyword", defaultValue = "") String keyword
+    ) {
         // 调用Service方法获取分页数据
         PageInfo<Role> pageInfo;
         try {
@@ -45,4 +45,10 @@ public class RoleHandler {
         return ResultEntity.successWithoutData();
     }
 
+    @ResponseBody
+    @RequestMapping("/role/update.json")
+    public ResultEntity<String> updateRole(Role role) {
+        roleService.updateRole(role);
+        return ResultEntity.successWithoutData();
+    }
 }

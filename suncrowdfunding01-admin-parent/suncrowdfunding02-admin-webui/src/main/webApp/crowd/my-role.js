@@ -78,9 +78,31 @@ function fillTableBody(pageInfo) {
 // 生成分页导航条码
 function generateNavigator(pageInfo) {
     // 获取总记录数
+
+    const totalRecord = pageInfo.total;
+
+    //声明相关属性
+    const properties={
+        "num_edge_entries": 3,    // 边缘页数
+        "num_display_entries": 5, // 主体页数
+        "callback": pageinationCallBack,
+        "items_per_page":pageInfo.pageSize,
+        "current_page": pageInfo.pageNum-1,
+        "prev_text": "上一页",
+        "next_text":"下一页"
+    };
+    // 调用pagination()函数
+    $("#Pagination").pagination(totalRecord, properties);
 }
 
-//
-function paginationCallBack(pageIndex, JQuery) {
+//调用回调函数
+function pageinationCallBack(pageIndex, JQuery) {
 
+    //修改window 对象的pageNum 属性
+    window.pageNum = pageIndex + 1;
+
+    //调用分页函数
+    generatePage();
+
+    return false;
 }

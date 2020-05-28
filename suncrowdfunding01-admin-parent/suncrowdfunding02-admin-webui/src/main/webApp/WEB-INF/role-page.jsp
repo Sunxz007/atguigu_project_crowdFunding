@@ -5,6 +5,8 @@
     <%@include file="/WEB-INF/include-head.jsp" %>
     <title>尚筹网</title>
 </head>
+<link rel="stylesheet" href="css/pagination.css">
+<script src="jquery/jquery.pagination.js"></script>
 <script type="text/javascript" src="crowd/my-role.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -61,18 +63,9 @@
                             <tfoot>
                             <tr>
                                 <td colspan="6" align="center">
-                                    <ul class="pagination">
-                                        <li class="disabled"><a href="#">上一页</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">下一页</a></li>
-                                    </ul>
+                                    <div id="Pagination" class="pagination"></div>
                                 </td>
                             </tr>
-
                             </tfoot>
                         </table>
                     </div>

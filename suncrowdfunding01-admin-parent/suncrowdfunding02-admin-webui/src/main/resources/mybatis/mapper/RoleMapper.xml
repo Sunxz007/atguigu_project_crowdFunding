@@ -86,6 +86,12 @@
     from t_role
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectRoleByKeyword" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_role
+    where name like concat("%",#{keyword},"%")
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_role
     where id = #{id,jdbcType=INTEGER}

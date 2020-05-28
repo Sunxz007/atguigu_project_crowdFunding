@@ -1,8 +1,11 @@
 package com.sun.test;
 
 import com.sun.crowd.entity.Admin;
+import com.sun.crowd.entity.Role;
 import com.sun.crowd.mapper.AdminMapper;
+import com.sun.crowd.mapper.RoleMapper;
 import com.sun.crowd.service.api.AdminService;
+import com.sun.crowd.service.api.RoleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -71,5 +74,15 @@ public class CrowdTest {
         logger.error("Im Error Level");
         logger.error("Im Error Level");
         logger.error("Im Error Level");
+    }
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Test
+    public void testRole(){
+        for (int i = 0; i < 200; i++) {
+            roleMapper.insert(new Role(i, "role" + i));
+        }
     }
 }

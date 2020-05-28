@@ -16,6 +16,17 @@
         window.keyword = "";
         // 2. 调用执行分页的函数
         generatePage();
+
+        // 3. 查询按钮绑定查询函数
+
+        $("#searchBtn").click(function () {
+
+            //获取关键词，给赋值给对应的全局变量
+            window.keyword = $("#keywordInput").val();
+            // 启用分页函数刷新页面
+            generatePage();
+        })
+
     })
 </script>
 <body>
@@ -34,10 +45,10 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <input class="form-control has-success" name="keywordInput" id="keywordInput" type="text" placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询
+                        <button type="button" id="searchBtn" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i

@@ -35,7 +35,7 @@
                             <!--配置数据库方言-->
                             <prop key="dialect">mysql</prop>
                             <!--配置页码的合理化修正-->
-                            <prop key="reasonable">ture</prop>
+                            <prop key="reasonable">true</prop>
                         </props>
                     </property>
                 </bean>

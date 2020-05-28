@@ -38,4 +38,11 @@ public class RoleHandler {
         }
     }
 
+    @ResponseBody
+    @RequestMapping("/role/save.json")
+    public ResultEntity<String> saveRole(Role role) {
+        roleService.saveRole(role);
+        return ResultEntity.successWithoutData();
+    }
+
 }

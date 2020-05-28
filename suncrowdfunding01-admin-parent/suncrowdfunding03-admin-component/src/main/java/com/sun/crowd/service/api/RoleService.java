@@ -9,4 +9,6 @@ import com.sun.crowd.entity.Role;
 public interface RoleService {
 
     PageInfo<Role> getPageInfo(Integer pageNum ,Integer pageSize,String keyword);
+
+    void saveRole(Role role);
 }

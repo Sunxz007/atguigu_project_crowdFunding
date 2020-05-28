@@ -20,6 +20,11 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
+    public void saveRole(Role role) {
+        roleMapper.insert(role);
+    }
+
+    @Override
     public PageInfo<Role> getPageInfo(Integer pageNum, Integer pageSize, String keyword) {
 
         // 1. 开启分页功能

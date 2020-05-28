@@ -63,11 +63,11 @@ function fillTableBody(pageInfo) {
         const roleName = role.name;
 
         const numberTd = "<td>" + (i + 1) + "</td>";
-        const checkboxTd = "<td><input type='checkbox'></td>";
+        const checkboxTd = "<td><input id=" + roleId + " class='itemBox' type='checkbox'></td>";
         const roleNameTd = "<td>" + roleName + "</td>";
         const checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>";
         const pencilBtn = "<button id=" + roleId + " type='button'  class='btn btn-primary btn-xs pencilBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
-        const removeBtn = "<button type='button' class='btn btn-danger btn-xs'><i class=' glyphicon glyphicon-remove'></i></button>";
+        const removeBtn = "<button  id=" + roleId + " type='button' class='btn btn-danger btn-xs removeBtn'><i class=' glyphicon glyphicon-remove'></i></button>";
 
         const buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>";
         const tr = "<tr>" + numberTd + checkboxTd + roleNameTd + buttonTd + "</tr>";
@@ -107,4 +107,25 @@ function pageinationCallBack(pageIndex, JQuery) {
     generatePage();
 
     return false;
+}
+
+
+// 显示确认模态框
+function showConfirmModal(roleArray) {
+    //打开模态框
+    $("#confirmModal").modal("show");
+    const roleNameSpan=$("#roleNameSpan");
+    // 清除旧数据
+    roleNameSpan.empty();
+
+    //在全局中创建一个存储删除id的数组
+    window.roleIdArray = [];
+
+    //遍历roleArray数组
+    for (let i = 0; i <roleArray.length ; i++) {
+        const role = roleArray[i];
+        const roleName= role.roleName;
+        roleNameSpan.append(roleName+"</br>");
+        window.roleIdArray.push(role.roleId);
+    }
 }

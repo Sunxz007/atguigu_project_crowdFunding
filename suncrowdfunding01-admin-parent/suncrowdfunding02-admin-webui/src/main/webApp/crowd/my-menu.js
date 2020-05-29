@@ -37,9 +37,9 @@ function myAddHoverDom(treeId, treeNode) {
     }
     // 准备各个按钮的 HTML 标签
 
-    const addBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0;' href='#' title='添加子节点'>&nbsp;&nbsp;<i class='fa fa-fw fa-plus rbg'></i></a>";
-    const removeBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0;' href='#' title=' 删 除 节 点 '>&nbsp;&nbsp;<i class='fa fa-fw fa-times rbg'></i></a>";
-    const editBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0;' href='#' title=' 修 改 节 点 '>&nbsp;&nbsp;<i class='fafa-fw fa-edit rbg'></i></a>";
+    const addBtn = "<a id='" + treeNode.id + "' class='addBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0;' href='#' title='添加子节点'>&nbsp;<i class='fa fa-fw fa-plus rbg'></i></a>";
+    const removeBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs removeBtn' style='margin-left:10px;padding-top:0;' href='#' title=' 删除 节 点 '>&nbsp;<i class='fa fa-fw fa-times rbg'></i></a>";
+    const editBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs editBtn' style='margin-left:10px;padding-top:0;' href='#' title=' 修 改 节 点 '>&nbsp;<i class='fa fa-fw fa-edit rbg'></i></a>";
 
     // 获取当前节点的级别数据
 

@@ -84,4 +84,12 @@ public class MenuHandler {
         // 13. 将组装好的树形结构返回给根节点
         return ResultEntity.successWithData(root);
     }
+
+    @ResponseBody
+    @RequestMapping("/menu/save.json")
+    public ResultEntity<String> saveMenu(Menu menu){
+
+        menuService.saveMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
 }

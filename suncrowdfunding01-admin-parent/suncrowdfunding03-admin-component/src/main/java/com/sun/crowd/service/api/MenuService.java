@@ -10,4 +10,6 @@ public interface MenuService {
     void saveMenu(Menu menu);
 
     void updateMenu(Menu menu);
+
+    void remove(Integer id);
 }

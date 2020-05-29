@@ -8,9 +8,7 @@ import java.util.List;
  * @author sun
  */
 public class Menu {
-    /**
-     *
-     */
+
     private Integer id;
 
     /**
@@ -58,6 +56,48 @@ public class Menu {
 
     public String getName() {
         return name;
+    }
+
+    public List<Menu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Menu> children) {
+        this.children = children;
+    }
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", pid=" + pid +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", icon='" + icon + '\'' +
+                ", children=" + children +
+                ", open=" + open +
+                '}';
+    }
+
+    public Menu(Integer id, Integer pid, String name, String url, String icon, List<Menu> children, Boolean open) {
+        this.id = id;
+        this.pid = pid;
+        this.name = name;
+        this.url = url;
+        this.icon = icon;
+        this.children = children;
+        this.open = open;
+    }
+
+    public Menu() {
     }
 
     public void setName(String name) {

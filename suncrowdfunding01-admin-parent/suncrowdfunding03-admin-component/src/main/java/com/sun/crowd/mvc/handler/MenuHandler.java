@@ -92,4 +92,11 @@ public class MenuHandler {
         menuService.saveMenu(menu);
         return ResultEntity.successWithoutData();
     }
+
+    @ResponseBody
+    @RequestMapping("/menu/update.json")
+    public ResultEntity<String> updateMenu(Menu menu){
+        menuService.updateMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
 }

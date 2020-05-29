@@ -44,7 +44,7 @@
 
             // 给添加子节点按钮绑定单击响应函数
             $("#treeDemo").on("click", ".addBtn", function () {
-                
+
                 // 将当前节点的 id，作为新节点的 pid 保存到全局变量
                 window.pid = this.id;
                 // 打开模态框
@@ -91,10 +91,61 @@
                 // jQuery 对象调用 click()函数，里面不传任何参数，相当于用户点击了一下
                 $("#menuResetBtn").click();
             });
-        });
 
+            // 给编辑按钮绑定单击响应函数
+            $("#treeDemo").on("click", ".editBtn", function () {
+                // 将当前节点的 id 保存到全局变量
+                window.id = this.id;
+                // 打开模态框
+                $("#menuEditModal").modal("show");
+                // 获取 zTreeObj 对象
+                const zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                // 根据 id 属性查询节点对象
+                // 用来搜索节点的属性名
+                const key = "id";
+                // 用来搜索节点的属性值
+                const value = window.id;
+                const currentNode = zTreeObj.getNodeByParam(key, value);
+                // 回显表单数据
+                $("#menuEditModal [name=name]").val(currentNode.name);
+                $("#menuEditModal [name=url]").val(currentNode.url);
+                // 回显 radio 可以这样理解：被选中的 radio 的 value 属性可以组成一个数组，
+                // 然后再用这个数组设置回 radio，就能够把对应的值选中
+                $("#menuEditModal [name=icon]").val([currentNode.icon]);
+                return false;
+            });
 
-
+            // 给更新模态框中的更新按钮绑定单击响应函数
+            $("#menuEditBtn").click(function () {
+                // 收集表单数据
+                const name = $("#menuEditModal [name=name]").val();
+                const url = $("#menuEditModal [name=url]").val();
+                const icon = $("#menuEditModal [name=icon]:checked").val();
+                // 发送 Ajax 请求
+                $.ajax({
+                    "url": "menu/update.json",
+                    "type": "post",
+                    "data": {"id": window.id, "name": name, "url": url, "icon": icon},
+                    "dataType": "json",
+                    "success": function (response) {
+                        const result = response.result;
+                        if (result === "SUCCESS") {
+                            layer.msg("操作成功！");
+                            // 重新加载树形结构，注意：要在确认服务器端完成保存操作后再刷新
+                            // 否则有可能刷新不到最新的数据，因为这里是异步的
+                            generateTree();
+                        }
+                        if (result === "FAILED") {
+                            layer.msg("操作失败！" + response.message);
+                        }
+                    }, "error": function (response) {
+                        layer.msg(response.status + " " + response.statusText);
+                    }
+                });
+                // 关闭模态框
+                $("#menuEditModal").modal("hide");
+            });
+        })
     </script>
 </head>
 <body>
@@ -117,6 +168,7 @@
         </div>
     </div>
 </div>
-<%@include file="/WEB-INF/modal-menu-add.jsp"%>
+<%@include file="/WEB-INF/modal-menu-add.jsp" %>
+<%@include file="/WEB-INF/modal-menu-edit.jsp"%>
 </body>
 </html>

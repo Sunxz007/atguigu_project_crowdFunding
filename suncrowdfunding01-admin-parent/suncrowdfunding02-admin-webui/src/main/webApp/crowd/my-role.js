@@ -1,3 +1,41 @@
+// 声明专门的函数用来在分配Auth的模态框中显示Auth的树形结构
+function fillAuthTree() {
+    // 1. 发送Ajax请求查询Auth数据
+    const ajaxReturn = $.ajax({
+        "url": "assign/get/all/auth.json",
+        "type": "post",
+        "dateType": "json",
+        "async": false
+    });
+
+    if (ajaxReturn.status !== 200) {
+        layer.msg("请求出错！响应状态码是：" + ajaxReturn.status + "说明是：" + ajaxReturn.statusText);
+        return;
+    }
+    // 2. 从响应结构中取数据中取得Auth的Jason数据
+    // 从服务器中取得的list不需要组装成树形结构，交给ZTree去组装
+    const authList = ajaxReturn.responseJSON.data;
+
+    //3. 准备ztree进行设置的Json对象
+    const setting = {
+        "data": {
+            "simpleData": {
+                // 开启简单JSON的功能
+                "enable": true
+            }
+        }
+    };
+    // 4. 生成树形结构
+    $.fn.zTree.init($("#treeDemo"), setting, authList);
+
+    // 5. 查询已分配的Auth的id组成的数组
+
+    
+    //6. 根据authIdArray把树形结构勾对应的节点勾选上
+
+}
+
+
 //执行分页，生成分页效果，任何时候调用这个函数都会重新加载
 function generatePage() {
     // 1. 获取分页数据
@@ -65,7 +103,7 @@ function fillTableBody(pageInfo) {
         const numberTd = "<td>" + (i + 1) + "</td>";
         const checkboxTd = "<td><input id=" + roleId + " class='itemBox' type='checkbox'></td>";
         const roleNameTd = "<td>" + roleName + "</td>";
-        const checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>";
+        const checkBtn = "<button id=" + roleId + "type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
         const pencilBtn = "<button id=" + roleId + " type='button'  class='btn btn-primary btn-xs pencilBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
         const removeBtn = "<button  id=" + roleId + " type='button' class='btn btn-danger btn-xs removeBtn'><i class=' glyphicon glyphicon-remove'></i></button>";
 

@@ -3,6 +3,8 @@
 <html lang="zh-CN">
 <head>
     <%@include file="/WEB-INF/include-head.jsp" %>
+    <link href="ztree/zTreeStyle.css" rel="stylesheet">
+    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
     <title>尚筹网</title>
 </head>
 <link rel="stylesheet" href="css/pagination.css">
@@ -205,6 +207,13 @@
             }
             // 调用专门的函数打开模态框
             showConfirmModal(roleArray);
+        });
+
+        // 13 给分配权限按钮绑定单击响应事件
+        $("#rolePageBody").on("click",".checkBtn",function () {
+            $("#assignModal").modal("show");
+            // 在模态框中加载Auth 的树形结构
+            fillAuthTree();
         })
     })
 </script>
@@ -271,5 +280,6 @@
 <%@include file="/WEB-INF/modal-role-add.jsp" %>
 <%@include file="/WEB-INF/modal-role-edit.jsp" %>
 <%@include file="/WEB-INF/modal-role-confirm.jsp" %>
+<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>
 </body>
 </html>

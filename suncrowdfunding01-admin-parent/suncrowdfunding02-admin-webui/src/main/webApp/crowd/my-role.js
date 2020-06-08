@@ -21,16 +21,27 @@ function fillAuthTree() {
         "data": {
             "simpleData": {
                 // 开启简单JSON的功能
-                "enable": true
+                "enable": true,
+                // 使用categoryID 属性关联关系，不用默认pId
+                "pIdKey":"categoryId"
+            },
+            "key":{
+                // 使用title 显示节点名
+                "name":"title"
             }
+        },
+        "check":{
+            "enable": true
         }
+
     };
     // 4. 生成树形结构
-    $.fn.zTree.init($("#treeDemo"), setting, authList);
-
+    const zTreeObj= $.fn.zTree.init($("#authTreeDemo"), setting, authList);
+    // 调用zTree对象方法，把节点展开
+    zTreeObj.expandAll(true)
     // 5. 查询已分配的Auth的id组成的数组
 
-    
+
     //6. 根据authIdArray把树形结构勾对应的节点勾选上
 
 }

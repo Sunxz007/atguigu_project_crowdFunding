@@ -20,20 +20,14 @@ public class AssignHandler {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping("/assign/to/assgin/role/page")
+    @RequestMapping("/assign/to/assgin/role/page.html")
     public String toAssignRolePage(
             @RequestParam("adminId") Integer id,
             ModelMap modelMap
-
-
     ){
-
         // 1. 查询已分配角色
-
         List<Role> assignedRole = roleService.getAssignedRole(id);
-
         //2. 查询未分配角色
-
         List<Role> unAssignedRole = roleService.getUnAssignedRole(id);
         //3. 存入模型
         modelMap.addAttribute("assignedRole", assignedRole);

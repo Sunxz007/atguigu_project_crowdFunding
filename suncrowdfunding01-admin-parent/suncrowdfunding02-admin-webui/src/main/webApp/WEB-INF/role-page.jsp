@@ -211,6 +211,8 @@
 
         // 13 给分配权限按钮绑定单击响应事件
         $("#rolePageBody").on("click",".checkBtn",function () {
+            // 把当前角色id存入变量
+            window.roleId = this.id;
             $("#assignModal").modal("show");
             // 在模态框中加载Auth 的树形结构
             fillAuthTree();

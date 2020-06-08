@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AuthService {
     List<Auth> getAll();
+
+    List<Integer> getAssignedAuthIdByRoleId(Integer roleId);
 }

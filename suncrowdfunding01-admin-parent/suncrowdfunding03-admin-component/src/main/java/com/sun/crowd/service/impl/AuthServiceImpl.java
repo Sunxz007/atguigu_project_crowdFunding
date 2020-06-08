@@ -20,4 +20,8 @@ public class AuthServiceImpl implements AuthService {
         return authMapper.selectByExample(new AuthExample());
     }
 
+    @Override
+    public List<Integer> getAssignedAuthIdByRoleId( Integer roleId) {
+        return authMapper.selectAssignedAuthIdByRoleId(roleId);
+    }
 }

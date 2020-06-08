@@ -68,6 +68,9 @@
   <sql id="Base_Column_List" >
     id, name, title, category_id
   </sql>
+  <select id="selectAssignedAuthIdByRoleId" resultType="int">
+    select auth_id from inner_role_auth where role_id =#{roleId}
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.crowd.entity.AuthExample" >
     select
     <if test="distinct" >

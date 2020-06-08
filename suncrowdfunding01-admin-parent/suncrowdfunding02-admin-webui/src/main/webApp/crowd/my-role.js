@@ -1,7 +1,7 @@
 // 声明专门的函数用来在分配Auth的模态框中显示Auth的树形结构
 function fillAuthTree() {
     // 1. 发送Ajax请求查询Auth数据
-    const ajaxReturn = $.ajax({
+    let ajaxReturn = $.ajax({
         "url": "assign/get/all/auth.json",
         "type": "post",
         "dateType": "json",
@@ -41,9 +41,34 @@ function fillAuthTree() {
     zTreeObj.expandAll(true)
     // 5. 查询已分配的Auth的id组成的数组
 
-
+    ajaxReturn=$.ajax({
+        "url":"assign/get/assigned/auth/id.json",
+        "type":"post",
+        "data":{
+            "roleId":window.roleId
+        },
+        "dateType":"json",
+        "async":false
+    });
+    console.log(ajaxReturn);
+    if (ajaxReturn.status !== 200) {
+        layer.msg("请求出错！响应状态码是：" + ajaxReturn.status + "说明是：" + ajaxReturn.statusText);
+        return;
+    }
+    // 从响应结果中获取数组
+    const authIdList = ajaxReturn.responseJSON.data;
+    console.log(authIdList);
     //6. 根据authIdArray把树形结构勾对应的节点勾选上
+    for (let i = 0; i <authIdList.length ; i++) {
+        // 根据id查询数据结构中节点
+        const treeNode = zTreeObj.getNodeByParam("id", authIdList[i]);
 
+        //将treenode设置为被勾选
+        checked = true;               //表示结果勾选
+        checkedTypeFlag=false;        //表示不联动
+
+        zTreeObj.checkNode(treeNode, checked, checkedTypeFlag);
+    }
 }
 
 
@@ -114,7 +139,7 @@ function fillTableBody(pageInfo) {
         const numberTd = "<td>" + (i + 1) + "</td>";
         const checkboxTd = "<td><input id=" + roleId + " class='itemBox' type='checkbox'></td>";
         const roleNameTd = "<td>" + roleName + "</td>";
-        const checkBtn = "<button id=" + roleId + "type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
+        const checkBtn = "<button id=" + roleId + " type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
         const pencilBtn = "<button id=" + roleId + " type='button'  class='btn btn-primary btn-xs pencilBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
         const removeBtn = "<button  id=" + roleId + " type='button' class='btn btn-danger btn-xs removeBtn'><i class=' glyphicon glyphicon-remove'></i></button>";
 

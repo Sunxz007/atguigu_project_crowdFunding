@@ -171,4 +171,22 @@ public class AdminServiceImpl implements AdminService {
 
         return adminMapper.selectByExample(new AdminExample());
     }
+
+    /**
+     * 保存admin对象所包含的角色
+     *
+     * @param adminId
+     * @param roleIdList
+     */
+    @Override
+    public void saveAdminRoleRelationship(Integer adminId, List<Integer> roleIdList) {
+
+       // 1. 根据adminId删除旧的关联关系数据
+        adminMapper.deletRelationship(adminId);
+
+        // 2. 根据roleIdlist保存新的关联关系
+        if (roleIdList != null && roleIdList.size() > 0) {
+            adminMapper.insertNewRelationship(adminId, roleIdList);
+        }
+    }
 }

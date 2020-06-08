@@ -46,4 +46,11 @@ public interface AdminService {
      * @param admin 需要更新的admin信息
      */
     void updateAdmin(Admin admin);
+
+    /**
+     * 保存admin对象所包含的角色
+     * @param adminId
+     * @param roleIdList
+     */
+    void saveAdminRoleRelationship(Integer adminId, List<Integer> roleIdList);
 }

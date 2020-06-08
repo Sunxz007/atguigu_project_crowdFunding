@@ -24,7 +24,7 @@ public class AssignHandler {
     public String toAssignRolePage(
             @RequestParam("adminId") Integer id,
             ModelMap modelMap
-    ){
+    ) {
         // 1. 查询已分配角色
         List<Role> assignedRole = roleService.getAssignedRole(id);
         //2. 查询未分配角色
@@ -33,5 +33,17 @@ public class AssignHandler {
         modelMap.addAttribute("assignedRole", assignedRole);
         modelMap.addAttribute("unAssignedRole", unAssignedRole);
         return "assign-role";
+    }
+
+    @RequestMapping("/assign/do/role/assign.html")
+    public String saveAdminRoleRelationship(
+            @RequestParam("adminId") Integer adminId,
+            @RequestParam("pageNum") Integer pageNum,
+            @RequestParam("keyword") String keyword,
+            @RequestParam(value = "roleIdList",required = false) List<Integer> roleIdList
+    ) {
+        // 允许页面上的所有已分配角色再提交表单，所以可以不提供roleList
+        adminService.saveAdminRoleRelationship(adminId, roleIdList);
+        return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword" + keyword;
     }
 }

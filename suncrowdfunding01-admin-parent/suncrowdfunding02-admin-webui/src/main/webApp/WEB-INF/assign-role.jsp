@@ -14,6 +14,10 @@
                 $("select:eq(1)>option:selected").appendTo($("select:eq(0)"));
             })
 
+            $("#submitBtn").click(function () {
+                // 在提交前选中全部要分配的角色的option
+                $("select:eq(1)>option").prop("selected", "selected");
+            })
         })
 
     </script>
@@ -33,7 +37,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form role="form" class="form-inline" action="assign/do/role/assign.html" method="post">
-                        <input type="hidden" name="adminId" value="${param.adminUId}">
+                        <input type="hidden" name="adminId" value="${param.adminId}">
                         <input type="hidden" name="pageNum" value="${param.pageNum}">
                         <input type="hidden" name="keyword" value="${param.keyword}">
                         <div class="form-group">
@@ -60,7 +64,7 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-lg btn-success" style="width: 150px" > 保存</button>
+                        <button id="submitBtn" type="submit" class="btn btn-lg btn-success" style="width: 150px" > 保存</button>
                     </form>
                 </div>
             </div>

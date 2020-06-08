@@ -15,7 +15,7 @@
                     <ul id="authTreeDemo" class="ztree"></ul>
                 </div>
                 <div class="modal-footer">
-                    <button id="confirmBtn" type="button" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> OK</button>
+                    <button  id="assignBtn" type="button" class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> OK</button>
                 </div>
             </form>
         </div>

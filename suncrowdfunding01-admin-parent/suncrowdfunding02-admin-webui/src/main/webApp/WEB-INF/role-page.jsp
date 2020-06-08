@@ -216,6 +216,53 @@
             $("#assignModal").modal("show");
             // 在模态框中加载Auth 的树形结构
             fillAuthTree();
+        });
+
+        // 14 给分配权限模态框中的"分配"按钮绑定单击响应函数
+        $("#assignBtn").click(function () {
+            // 收集树形结构的各个节点中被勾选的节点
+            // 1. 声明一个数组存放勾选的roleId
+            const authIdArray=[];
+            // 2. 获取zTreeObj对象
+            const zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
+            // 3. 获取全部勾选的节点
+            const checkedNodes = zTreeObj.getCheckedNodes();
+            // 4. 遍历checkedNodes
+            for (let i = 0; i <checkedNodes.length ; i++) {
+                const checkNode = checkedNodes[i];
+                const authId = checkNode.id;
+                authIdArray.push(authId);
+            }
+
+            // 发送请求执行分配
+            let requestBody={
+                "authIdArray": authIdArray,
+                // 为了服务器端handler方法能够统一使用List<Integer> 方式接受数据，roleId也存入数组
+                "roleId": [window.roleId]
+            };
+
+            requestBody = JSON.stringify(requestBody);
+
+            $.ajax({
+                "url":"assign/do/role/assign/auth.json",
+                "data":requestBody,
+                "type":"post",
+                "contentType":"application/json;chaarset=UTF-8",
+                "dataType":"json",
+                "success":function (response) {
+                    const result=response.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("操作成功")
+                    }
+                    if(result==="FAIL"){
+                        layer.msg("操作失败" + response.message);
+                    }
+                },
+                "error":function (response) {
+                    layer.msg(response.status + " " + response.statusText);
+                }
+            });
+            $("#assignModal").modal("hide");
         })
     })
 </script>

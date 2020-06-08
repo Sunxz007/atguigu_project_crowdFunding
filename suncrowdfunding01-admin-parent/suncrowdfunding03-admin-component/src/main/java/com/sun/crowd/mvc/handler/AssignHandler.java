@@ -9,11 +9,13 @@ import com.sun.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AssignHandler {
@@ -47,7 +49,7 @@ public class AssignHandler {
             @RequestParam("adminId") Integer adminId,
             @RequestParam("pageNum") Integer pageNum,
             @RequestParam("keyword") String keyword,
-            @RequestParam(value = "roleIdList",required = false) List<Integer> roleIdList
+            @RequestParam(value = "roleIdList", required = false) List<Integer> roleIdList
     ) {
         // 允许页面上的所有已分配角色再提交表单，所以可以不提供roleList
         adminService.saveAdminRoleRelationship(adminId, roleIdList);
@@ -56,8 +58,8 @@ public class AssignHandler {
 
     @RequestMapping("/assign/get/all/auth.json")
     @ResponseBody
-    public ResultEntity<List<Auth>> getAllAuth(){
-        List<Auth> authList=authService.getAll();
+    public ResultEntity<List<Auth>> getAllAuth() {
+        List<Auth> authList = authService.getAll();
         return ResultEntity.successWithData(authList);
     }
 
@@ -66,5 +68,12 @@ public class AssignHandler {
     public ResultEntity<List<Integer>> getAssignAuthIdByRoleId(@RequestParam("roleId") Integer roleId) {
         List<Integer> authList = authService.getAssignedAuthIdByRoleId(roleId);
         return ResultEntity.successWithData(authList);
+    }
+
+    @RequestMapping("/assign/do/role/assign/auth.json")
+    @ResponseBody
+    public ResultEntity<String> saveRoleAuthRelationship(@RequestBody Map<String, List<Integer>> map) {
+        authService.saveRoleRelationship(map);
+        return ResultEntity.successWithoutData();
     }
 }

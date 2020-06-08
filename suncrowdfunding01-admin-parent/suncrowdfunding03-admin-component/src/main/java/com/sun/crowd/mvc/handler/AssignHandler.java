@@ -2,6 +2,7 @@ package com.sun.crowd.mvc.handler;
 
 import com.sun.crowd.entity.Role;
 import com.sun.crowd.service.api.AdminService;
+import com.sun.crowd.service.api.AuthService;
 import com.sun.crowd.service.api.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class AssignHandler {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private AuthService authService;
 
     @RequestMapping("/assign/to/assgin/role/page.html")
     public String toAssignRolePage(

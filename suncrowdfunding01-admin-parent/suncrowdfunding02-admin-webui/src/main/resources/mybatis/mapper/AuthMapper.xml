@@ -81,26 +81,39 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
     from t_auth
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAssignedAuthNameByAdminId" resultType="String">
+    SELECT distinct t_auth.`name`
+    FROM t_auth
+           LEFT JOIN inner_role_auth ON t_auth.id = inner_role_auth.auth_id
+           LEFT JOIN inner_admin_role ON inner_admin_role.role_id = inner_role_auth.role_id
+    WHERE inner_admin_role.admin_id = #{adminId}
+      and t_auth.name != ''
+      and t_auth.name is not null;
+
+  </select>
   <delete id="deleteOldRelationship">
-    delete from inner_role_auth where role_id=#{roleId}
+    delete
+    from inner_role_auth
+    where role_id = #{roleId}
   </delete>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_auth
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete
+    from t_auth
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.sun.crowd.entity.AuthExample" >
+  <delete id="deleteByExample" parameterType="com.sun.crowd.entity.AuthExample">
     delete from t_auth
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>

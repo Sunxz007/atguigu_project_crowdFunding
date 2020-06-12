@@ -189,4 +189,19 @@ public class AdminServiceImpl implements AdminService {
             adminMapper.insertNewRelationship(adminId, roleIdList);
         }
     }
+
+    /**
+     * 根据logAcct 获取admin
+     *
+     * @param logAcct
+     */
+    @Override
+    public Admin getAdminByLoginAcct(String logAcct) {
+        AdminExample adminExample = new AdminExample();
+        AdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andLogAcctEqualTo(logAcct);
+        List<Admin> admins = adminMapper.selectByExample(adminExample);
+        return admins.get(0);
+    }
+
 }

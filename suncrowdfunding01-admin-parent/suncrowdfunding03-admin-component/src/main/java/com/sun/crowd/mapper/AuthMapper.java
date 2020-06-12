@@ -33,4 +33,9 @@ public interface AuthMapper {
     void insertNewRelationship(@Param("roleId") Integer roleId,@Param("authIdList") List<Integer> authIdList);
 
     void deleteOldRelationship(Integer roleId);
+
+    /**
+     * 根据Admin的id获取拥有的权限名
+     */
+    List<String> selectAssignedAuthNameByAdminId(Integer adminId);
 }

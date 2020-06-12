@@ -26,6 +26,14 @@ public class AuthServiceImpl implements AuthService {
         return authMapper.selectAssignedAuthIdByRoleId(roleId);
     }
 
+    /**
+     * 根据Admin的id获取拥有的权限名
+     */
+    @Override
+    public List<String> getAssignedAuthNameByAdminId(Integer adminId) {
+        return authMapper.selectAssignedAuthNameByAdminId(adminId);
+    }
+
     @Override
     public void saveRoleRelationship(Map<String,List<Integer>> map) {
         // 1. 获取roleId

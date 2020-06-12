@@ -35,17 +35,18 @@
     <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
     <mvc:view-controller path="/role/to/page.html" view-name="role-page"/>
     <mvc:view-controller path="/menu/to/page.html" view-name="menu-page"/>
-    <!--注册拦截器-->
+<!--    取消自定义的拦截器，使用springsecurity做权限验证-->
+    <!--    &lt;!&ndash;注册拦截器&ndash;&gt;
     <mvc:interceptors>
         <mvc:interceptor>
-            <!--mvc:mapping 配置要拦截的资源-->
+            &lt;!&ndash;mvc:mapping 配置要拦截的资源&ndash;&gt;
             <mvc:mapping path="/**"/>
-            <!--不需要拦截的资源-->
+            &lt;!&ndash;不需要拦截的资源&ndash;&gt;
             <mvc:exclude-mapping path="/admin/to/login/page.html"/>
             <mvc:exclude-mapping path="/admin/do/login.html"/>
             <mvc:exclude-mapping path="/admin/do/loginout.html"/>
-            <!--配置拦截器的类-->
+            &lt;!&ndash;配置拦截器的类&ndash;&gt;
             <bean class="com.sun.crowd.mvc.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 </beans>

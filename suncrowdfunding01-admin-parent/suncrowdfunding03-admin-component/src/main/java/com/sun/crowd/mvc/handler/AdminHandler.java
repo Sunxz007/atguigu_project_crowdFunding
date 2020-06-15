@@ -5,6 +5,7 @@ import com.sun.crowd.constant.CrowdConstant;
 import com.sun.crowd.entity.Admin;
 import com.sun.crowd.service.api.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +49,7 @@ public class AdminHandler {
 
     }
 
+    @PreAuthorize("hasAnyAuthority('user:save')")
     @RequestMapping("/admin/save.html")
     public String save(Admin admin) {
 
@@ -56,6 +58,7 @@ public class AdminHandler {
         return "redirect:/admin/get/page.html?pageNum"+Integer.MAX_VALUE;
     }
 
+    @PreAuthorize("hasAnyAuthority('user:delete')")
     @RequestMapping("/admin/remove/{adminId}/{pageNum}/{keyword}.html")
     public String remove(
             @PathVariable("adminId") Integer adminId,

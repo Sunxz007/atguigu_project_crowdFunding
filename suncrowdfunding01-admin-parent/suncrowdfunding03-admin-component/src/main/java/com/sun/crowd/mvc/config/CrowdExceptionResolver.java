@@ -21,9 +21,12 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
 
-    @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
-    public ModelAndView resolveLoginAcctAlreadyInUseForUpdateException(
-            LoginAcctAlreadyInUseForUpdateException exception,
+    /**
+     * 改为处理无权限访问的错误
+     */
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView noAuthorityException(
+            Exception exception,
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {

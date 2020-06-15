@@ -1,15 +1,26 @@
 package com.sun.crowd.mvc.config;
 
+import com.sun.crowd.constant.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.util.AntPathMatcher;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * SpringSecurity配置类
@@ -18,6 +29,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 // 开启web权限控制
 @EnableWebSecurity
+// 启用全局方法权限控制功能，并且设置prePostEnable=true，保证@PreAuthority，@PostAuthority，@PreFilter，@PostFilter生效
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -38,9 +51,19 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
         //放行首页，登录页和静态资源
         http.authorizeRequests()
                 .antMatchers("/admin/to/login/page.html","/bootstrap/**","/fonts/**","/img/**","/jquery/**","/layer/**","/script/**","crowd/**","/css/**","/ztree/**","/WEB-INF/**")
-                .permitAll()
+                    .permitAll()
+                // 针对访问页面设定角色
+                .antMatchers("/admin/get/page.html")
+                    //要求有经理角色或user:get 权限
+                    .access("hasRole('经理') or hasAuthority('user:get')")
                 .anyRequest()
                 .authenticated()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler((HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e)-> {
+                    httpServletRequest.setAttribute("exception",new Exception(CrowdConstant.MESSAGE_ACCESS_DENIED));
+                    httpServletRequest.getRequestDispatcher("/WEB-INF/system-error.jsp").forward(httpServletRequest,httpServletResponse);
+                })
                 .and()
                 // 关闭跨域请求
                 .csrf().disable()

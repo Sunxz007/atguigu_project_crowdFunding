@@ -28,6 +28,8 @@ public class SecurityAdmin extends User {
 
         // 给本类的orginalAdmin 赋值
         this.originalAdmin = originalAdmin;
+        // 擦除原始Admin对象的密码
+        originalAdmin.setUserPswd(null);
     }
 
     public Admin getOriginalAdmin() {
